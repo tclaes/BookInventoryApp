@@ -4,7 +4,6 @@ package be.tcla.bookinventory.service;
 import be.tcla.bookinventory.model.Book;
 import be.tcla.bookinventory.model.Genre;
 
-
 import java.util.List;
 
 

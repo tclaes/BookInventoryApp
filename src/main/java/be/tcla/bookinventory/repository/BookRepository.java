@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface BookRepository {
 
-    int addBook(be.tcla.bookinventory.model.Book book);
-    int updateBook(be.tcla.bookinventory.model.Book book);
-    int deleteBook(be.tcla.bookinventory.model.Book book);
+    int addBook(Book book);
+    int updateBook(Book book);
+    int deleteBook(Book book);
 
     List<Book> findAll();
     List<Book> findByAuthor(String author);

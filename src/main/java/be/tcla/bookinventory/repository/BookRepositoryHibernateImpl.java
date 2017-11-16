@@ -3,6 +3,7 @@ package be.tcla.bookinventory.repository;
 import be.tcla.bookinventory.model.Book;
 import be.tcla.bookinventory.model.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,12 +26,14 @@ public class BookRepositoryHibernateImpl implements BookRepository {
 
     @Override
     public int updateBook(Book book) {
-        return 0;
+        Book b = repository.saveAndFlush(book);
+        return b!=null?1:0;
     }
 
     @Override
     public int deleteBook(Book book) {
-        return 0;
+        repository.delete(book);
+        return 1;
     }
 
     @Override
@@ -38,19 +41,24 @@ public class BookRepositoryHibernateImpl implements BookRepository {
         return repository.findAll();
     }
 
+
     @Override
+    @Query
     public List<Book> findByAuthor(String author) {
-        return null;
+        return repository.findByAuthorContaining(author);
     }
 
     @Override
+    @Query
     public List<Book> findByGenre(Genre genre) {
-        return null;
+
+        return repository.findByGenreContaining(genre);
     }
 
     @Override
+    @Query
     public List<Book> findByKeyword(String keyword) {
-        return null;
+        return repository.findByTitleOrBydAuthorContaining(keyword);
     }
 
     @Override

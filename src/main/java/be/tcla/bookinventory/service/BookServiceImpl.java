@@ -7,9 +7,7 @@ import be.tcla.bookinventory.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
-
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.Locale;
@@ -38,12 +36,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public int updateBook(Book book) {
-        return 0;
+        return repository.updateBook(book);
     }
 
     @Override
     public int deleteBook(Book book) {
-        return repository.deleteBook(book);
+        return 0;//repository.deleteBook(book);
     }
 
     @Override
@@ -56,17 +54,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findByAuthor(String author) {
-        return null;
+
+        return repository.findByAuthor(author);
     }
 
     @Override
     public List<Book> findByGenre(Genre genre) {
-        return null;
+        return repository.findByGenre(genre);
     }
 
     @Override
     public List<Book> findByKeyword(String keyword) {
-        return null;
+        return repository.findByKeyword(keyword);
     }
 
     @Override

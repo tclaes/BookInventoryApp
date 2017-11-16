@@ -1,5 +1,7 @@
 package be.tcla.bookinventory.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,6 +14,7 @@ public class Book {
     @NotNull
     private String title;
     private String publisher;
+    @Column(unique = true)
     private String ISBN;
     @NotNull
     private String author;

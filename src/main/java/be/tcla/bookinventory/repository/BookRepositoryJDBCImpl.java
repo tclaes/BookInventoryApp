@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Types;
 import java.util.List;
 
 @Repository
@@ -24,30 +25,59 @@ public class BookRepositoryJDBCImpl implements BookRepository {
     public int addBook(Book book) {
         String sql ="INSERT INTO spring.book VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try{
+        return
         jdbcTemplate.update(sql, ps -> {
             ps.setString(1,book.getISBN());
             ps.setString(2,book.getAuthor());
             ps.setBoolean(3,book.isEbook());
-            ps.setInt(4,book.getGenre().ordinal());
-            ps.setInt(5,book.getLanguage().ordinal());
+            if(book.getGenre() == null){
+                ps.setNull(4,java.sql.Types.INTEGER);
+            }
+            else ps.setInt(4,book.getGenre().ordinal());
+
+            if(book.getGenre() == null){
+                ps.setNull(5, Types.INTEGER);
+            }else ps.setInt(5,book.getLanguage().ordinal());
+
             ps.setInt(6,book.getPages());
             ps.setString(7,book.getPublisher());
             ps.setString(8,book.getSubject());
             ps.setString(9,book.getTitle());
 
         });
-        return 1;}
-        catch (Exception ex){
-            return 0;
-        }
+        //return 1;}
+//        catch (Exception ex){
+//            return 0;
+//        }
     }
 
     @Override
     public int updateBook(Book book) {
         String sql = "UPDATE book SET author=?, ebook=?, genre= ?, isbn= ?, language= ?, pages= ?,publisher=?, subject= ?, title= ?" +
                 "  WHERE id = ? ";
-        return 0;
+
+        return
+                jdbcTemplate.update(sql, ps -> {
+                    ps.setString(4,book.getISBN());
+                    ps.setString(1,book.getAuthor());
+                    ps.setBoolean(2,book.isEbook());
+                    if(book.getGenre() == null){
+                        ps.setNull(3,java.sql.Types.INTEGER);
+                    }
+                    else ps.setInt(3,book.getGenre().ordinal());
+
+                    if(book.getGenre() == null){
+                        ps.setNull(5, Types.INTEGER);
+                    }else ps.setInt(5,book.getLanguage().ordinal());
+
+                    ps.setInt(6,book.getPages());
+                    ps.setString(7,book.getPublisher());
+                    ps.setString(8,book.getSubject());
+                    ps.setString(9,book.getTitle());
+                    ps.setInt(10,book.getId());
+
+                });
+
     }
 
     @Override

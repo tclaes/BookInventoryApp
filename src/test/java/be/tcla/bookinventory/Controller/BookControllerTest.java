@@ -117,7 +117,7 @@ public class BookControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         String jsonBook = "{\"title\": \"This is it\",\"publisher\": \"tom\",\"author\": \"jos\",\"pages\": 158,\"ebook\": false," +
-                "\"subject\": \"ME\",\"language\": \"DUTCH\",\"genre\": \"ROMAN\",\"isbn\": \"123\"}";
+                "\"subject\": \"ME\",\"language\": \"DUTCH\",\"genre\": null,\"isbn\": \"123\"}";
 
         HttpEntity<String> data = new HttpEntity<>(jsonBook, headers);
 
