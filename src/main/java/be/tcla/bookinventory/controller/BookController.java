@@ -23,18 +23,18 @@ public class BookController {
      return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public int addBook(@RequestBody Book b){
          return service.addBook(b);
     }
 
-    @PostMapping
+    @PostMapping("/update")
     public int updateBook(@RequestBody Book b){
         return service.updateBook(b);
     }
 
-    @DeleteMapping
-    public int deleteBook(@RequestBody Book b){
+    @DeleteMapping("/delete/{delete}")
+    public int deleteBook(@PathVariable Book b){
         return service.deleteBook(b);
     }
 
@@ -47,5 +47,21 @@ public class BookController {
     public ResponseEntity findByGenre(@PathVariable Genre genre){
         return ResponseEntity.ok(service.findByGenre(genre));
     }
+
+    @RequestMapping(value="/keyword/{keyword}", method = RequestMethod.GET)
+    public ResponseEntity findByKeyword(@PathVariable String keyword){
+        return ResponseEntity.ok(service.findByKeyword(keyword));
+    }
+
+    @RequestMapping(value="/ebook/{ebook}",method = RequestMethod.GET)
+    public ResponseEntity findByEbooks(@PathVariable boolean ebook){
+        return ResponseEntity.ok(service.findByEbooks(ebook));
+    }
+
+    @RequestMapping(value="/title/{title}/author/{author}")
+    public ResponseEntity findByTitleAndAuthor(@PathVariable String title, String author){
+        return ResponseEntity.ok(service.findByTitleAndAuthor(title, author));
+    }
+
 
 }

@@ -2,6 +2,7 @@ package be.tcla.bookinventory.repository;
 
 import be.tcla.bookinventory.model.Book;
 import be.tcla.bookinventory.model.Genre;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -26,8 +27,10 @@ public class BookRepositoryHibernateImpl implements BookRepository {
 
     @Override
     public int updateBook(Book book) {
-        Book b = repository.saveAndFlush(book);
-        return b!=null?1:0;
+        Book bookToUpdate = repository.findOne(book.getId());
+        BeanUtils.copyProperties(book,bookToUpdate);
+        repository.saveAndFlush(bookToUpdate);
+        return bookToUpdate!=null?1:0;
     }
 
     @Override
@@ -58,12 +61,13 @@ public class BookRepositoryHibernateImpl implements BookRepository {
     @Override
     @Query
     public List<Book> findByKeyword(String keyword) {
-        return repository.findByTitleOrBydAuthorContaining(keyword);
+        return repository.findByTitleContaining(keyword);
     }
 
     @Override
+    @Query
     public List<Book> findByEbooks(boolean ebook) {
-        return null;
+        return repository.findByEbook(ebook);
     }
 
     @Override
@@ -73,6 +77,7 @@ public class BookRepositoryHibernateImpl implements BookRepository {
 
     @Override
     public Book findByTitleAndAuthor(String title, String author) {
-        return null;
+
+        return repository.findByTitleAndAuthorContaining(title, author);
     }
 }

@@ -84,23 +84,15 @@ public class BookRepositoryJDBCImpl implements BookRepository {
     public int deleteBook(Book book) {
         String sql = "DELETE FROM book WHERE id=?";
 
-        try{
+        return
             jdbcTemplate.update(sql,ps->{
                 ps.setInt(1,book.getId());
             });
-            return 1;
-        }
-        catch(Exception ex) {
-            return 0;
-        }
-
-
     }
 
     @Override
-
-            public List<Book> findAll() {
-                return jdbcTemplate.query("SELECT * FROM book", (resultSet, i) -> {
+    public List<Book> findAll() {
+        return jdbcTemplate.query("SELECT * FROM book", (resultSet, i) -> {
                     Book book = new Book();
                     book.setAuthor(resultSet.getString("author"));
                     book.setTitle(resultSet.getString("title"));
@@ -127,7 +119,11 @@ public class BookRepositoryJDBCImpl implements BookRepository {
 
 
     @Override
-    public List<be.tcla.bookinventory.model.Book> findByAuthor(String author) {
+    public List<Book> findByAuthor(String author) {
+//        String sql = "Select * from book where author like ?";
+//        return jdbcTemplate.query(sql,(rs,i)->{
+//           rs.setString(1,author);
+//        });
         return null;
     }
 

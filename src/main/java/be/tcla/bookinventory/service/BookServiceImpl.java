@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService {
 //bookRepositoryJDBCImpl
 
     @Autowired
-    public BookServiceImpl(@Qualifier("bookRepositoryHibernateImpl") BookRepository repository, MessageSource msg) {
+    public BookServiceImpl(@Qualifier("bookRepositoryJDBCImpl") BookRepository repository, MessageSource msg) {
         //public BookServiceImpl(@Qualifier("bookRepositoryHibernateImpl") BookRepository repository) {
         this.repository = repository;
         this.msg = msg;
@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public int deleteBook(Book book) {
-        return 0;//repository.deleteBook(book);
+        return repository.deleteBook(book);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findByEbooks(boolean ebook) {
-        return null;
+        return repository.findByEbooks(ebook);
     }
 
     @Override
@@ -80,6 +80,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findByTitleAndAuthor(String title, String author) {
-        return null;
+        return repository.findByTitleAndAuthor(title, author);
     }
 }
